@@ -3,7 +3,7 @@ let userId = null;
 
 async function initializeAgent() {
   try {
-    const response = await fetch('https://3.95.250.60:8080/initialize-agent', {
+    const response = await fetch('http://bixbox-loadbalancer-1541544251.us-east-1.elb.amazonaws.com:8080/initialize-agent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ async function initializeAgent() {
 
 async function askQuery(query) {
   try {
-    const response = await fetch('https://3.95.250.60:8080/ask-queries', {
+    const response = await fetch('http://bixbox-loadbalancer-1541544251.us-east-1.elb.amazonaws.com:8080/ask-queries', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ async function askQuery(query) {
 async function clearMemory() {
   try {
     console.log('Clearing memory...');
-    const response = await fetch('https://3.95.250.60:8080/clear-memory', {
+    const response = await fetch('http://bixbox-loadbalancer-1541544251.us-east-1.elb.amazonaws.com:8080/clear-memory', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
