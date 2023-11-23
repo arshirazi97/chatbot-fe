@@ -43,8 +43,7 @@ async function askQuery(query) {
     const data = await response.json();
     const botResponse = data.response;
 
-    // Identify the sender (Bot) and add the bot response to the chat on the left side
-    addMessage('Bot', botResponse, 'bg-gray-300', 'text-gray-800', 'self-start');
+    simulateChatGPTTyping(botResponse, 'Bot', 'bg-gray-300', 'text-gray-800', 'self-start');
   } catch (error) {
     console.error('Error processing query:', error);
   }
@@ -73,28 +72,61 @@ async function clearMemory() {
 
 function displayInitialBotMessage() {
   const initialBotMessage = 'Hi, how can I help you? I am a customer service consultant from everlane.';
-  addMessage('Bot', initialBotMessage, 'bg-gray-300', 'text-gray-800', 'self-start');
-  initialBotMessageDisplayed = true;
+  simulateChatGPTTyping(initialBotMessage, 'Bot', 'bg-gray-300', 'text-gray-800', 'self-start');
+  initialBotMessageDisplayed = true; 
   console.log('Initialization successful!');
 }
 
-async function sendMessage() {
+// Function to simulate ChatGPT-like typing effect
+function simulateChatGPTTyping(message, sender, bgColor, textColor, alignmentClass) {
+  const chatDiv = document.getElementById('chat');
+  const typingDiv = document.createElement('div');
+  typingDiv.className = `p-3 rounded-md ${bgColor} ${textColor} ${alignmentClass}`;
+
+  const senderDiv = document.createElement('div');
+  senderDiv.className = 'font-bold';
+  senderDiv.textContent = sender;
+
+  const typingIndicator = document.createElement('div');
+  typingIndicator.className = 'typing-indicator';
+  typingDiv.appendChild(senderDiv);
+  typingDiv.appendChild(typingIndicator);
+  chatDiv.appendChild(typingDiv);
+
+  // Check if the message is defined and not an empty string
+  if (message && message.length > 0) {
+    // Simulate typing before displaying the actual message
+    const textDiv = document.createElement('div');
+    textDiv.className = 'message-text';
+    chatDiv.appendChild(textDiv);
+
+    let index = 0;
+    const typingInterval = setInterval(() => {
+      if (index < message.length) {
+        textDiv.textContent += message.charAt(index);
+        index++;
+      } else {
+        clearInterval(typingInterval);
+        typingDiv.removeChild(typingIndicator);
+        textDiv.textContent = message;
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+      }
+    }, 50); // Adjust the delay based on your needs
+  }
+}
+
+function sendMessage() {
   const textInput = document.getElementById('textInput');
   const message = textInput.value.trim();
 
   if (message !== '') {
-    try {
-      addMessage('You', message, 'bg-blue-500', 'text-white', 'self-end');
-
-      textInput.value = '';
-      
-      await askQuery(message);
-    } catch (error) {
-      console.error('Error in sendMessage:', error);
-    }
+    addMessage('You', message, 'bg-blue-500', 'text-white', 'self-end');
+    textInput.value = '';
+    askQuery(message);
   }
 }
 
+// Updated addMessage function with typing effect for the bot's response
 function addMessage(sender, text, bgColor, textColor, alignmentClass) {
   const chatDiv = document.getElementById('chat');
   const messageDiv = document.createElement('div');
@@ -117,21 +149,18 @@ function addMessage(sender, text, bgColor, textColor, alignmentClass) {
   chatDiv.scrollTop = chatDiv.scrollHeight;
 }
 
-// Initialize variable to track whether initial bot message has been displayed
 let initialBotMessageDisplayed = false;
 
-// Show/hide chat container and button
 const chatContainer = document.getElementById('chatContainer');
 const chatButton = document.getElementById('chatButton');
 
-// Initially hide the chat container
 chatContainer.classList.add('hidden');
 
 // Call initializeAgent when the chat container is shown
 chatButton.addEventListener('click', () => {
   chatContainer.classList.toggle('hidden');
 
-  // If chat container is shown and initial bot message hasn't been displayed, simulate it
+  // If the chat container is shown and the initial bot message hasn't been displayed, simulate it
   if (!chatContainer.classList.contains('hidden') && !initialBotMessageDisplayed) {
     initializeAgent();
   }
