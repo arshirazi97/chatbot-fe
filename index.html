@@ -1,32 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+			rel="stylesheet"
+		/>
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha384-ezG1cyXV5DbHdFC2zsn1qI2AkK0tOp6Kv0wz1pNSLDWIw3sDbVz+5kndsv2aW6Vi"
         crossorigin="anonymous"> -->
-    
-    <title>Chatbot UI</title>
-</head>
 
-<body class="bg-gray-100 font-sans h-screen flex flex-col items-center justify-center">
-    <div id="chatContainer"
-        class="bg-white p-4 rounded-2xl shadow-md w-full max-w-md">
-        <!-- Chat Header -->
-        <div class="text-lg font-bold mb-2 flex items-center justify-between bg-black text-white p-2 rounded-t-xl">
-            <span id="chatStatus">Let’s chat? - We're online</span>
-        </div>
-        <!-- Chat Messages -->
-        <div id="chat" class="flex flex-col space-y-4 max-h-96 overflow-y-auto"></div>
-        <!-- Input and Send Button -->
-        <div class="flex items-center space-x-4 mt-4">
-            <input id="textInput" type="text"
-                class="flex-grow p-2 border rounded-md focus:outline-none focus:border-blue-500">
-            
-            <!-- <button onclick="startVoiceRecognition()" class="">
+		<title>Chatbot UI</title>
+	</head>
+
+	<body
+		class="bg-gray-100 font-sans h-screen flex flex-col items-center justify-center"
+	>
+		<div
+			id="chatContainer"
+			class="bg-white p-4 rounded-2xl shadow-md w-full max-w-md"
+		>
+			<!-- Chat Header -->
+			<div
+				class="text-lg font-bold mb-2 flex items-center justify-between bg-black text-white p-2 rounded-t-xl"
+			>
+				<span id="chatStatus">Let’s chat? - We're online</span>
+			</div>
+			<!-- Chat Messages -->
+			<div
+				id="chat"
+				class="flex flex-col space-y-4 max-h-96 overflow-y-auto"
+			></div>
+			<!-- Input and Send Button -->
+			<div class="flex items-center space-x-4 mt-4">
+				<input
+					id="textInput"
+					type="text"
+					class="flex-grow p-2 border rounded-md focus:outline-none focus:border-blue-500"
+				/>
+
+				<!-- <button onclick="startVoiceRecognition()" class="">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 16 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -34,30 +48,51 @@
                 </svg>
             </button> -->
 
-            <button onclick="sendMessage()"
-                class="">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-send">
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
-            </button>
-        </div>
-    </div>
+				<button onclick="sendMessage()" class="">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="feather feather-send"
+					>
+						<line x1="22" y1="2" x2="11" y2="13"></line>
+						<polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+					</svg>
+				</button>
+			</div>
+		</div>
 
-    <div id="chatButton"
-        class="fixed bottom-0 mb-4 bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600"
-        onclick="toggleChat()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="feather feather-message-square animate" id="chatIcon">
-            <path
-                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-        </svg>
-    </div>
+		<div
+			id="chatButton"
+			class="fixed bottom-0 mb-4 bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600"
+			onclick=""
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="feather feather-message-square animate"
+				id="chatIcon"
+			>
+				<path
+					d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+				></path>
+			</svg>
+		</div>
 
-    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
-    <script src="script.js"></script>
-</body>
+		<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+		<script src="script.js"></script>
+	</body>
 </html>
