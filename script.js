@@ -4,7 +4,7 @@ let userId = null;
 async function initializeAgent() {
 	try {
 		const response = await fetch(
-			"http://bixbot-loadbalancer-1777363259.us-east-1.elb.amazonaws.com:8080/initialize-agent",
+			"https://bixbot-service-2gklzrsouq-ue.a.run.app/initialize-agent",
 			{
 				method: "POST",
 				headers: {
@@ -39,7 +39,7 @@ async function askQuery(query) {
         console.log("Request body:", requestBody);
 
         const response = await fetch(
-            "http://bixbot-loadbalancer-1777363259.us-east-1.elb.amazonaws.com:8080/ask-text-queries",
+            "https://bixbot-service-2gklzrsouq-ue.a.run.app/ask-text-queries",
             {
                 method: "POST",
                 headers: {
@@ -74,7 +74,7 @@ async function clearMemory() {
 	try {
 		console.log("Clearing memory...");
 		const response = await fetch(
-			"http://bixbot-loadbalancer-1777363259.us-east-1.elb.amazonaws.com:8080/clear-memory",
+			"https://bixbot-service-2gklzrsouq-ue.a.run.app/clear-memory",
 			{
 				method: "POST",
 				headers: {
