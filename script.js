@@ -54,17 +54,27 @@ async function askQuery(query) {
             throw new Error(`Request failed with status ${response.status}`);
         }
 
-        const rawResponse = await response.text();
-        console.log("Raw response:", rawResponse);
+        const reader = response.body.getReader();
+        const textDecoder = new TextDecoder();
 
-        // Identify the sender (Bot) and add the bot response to the chat on the left side
-        addMessage(
-            "Bot",
+        let result = await reader.read();
+        let rawResponse = textDecoder.decode(result.value || new Uint8Array(), { stream: !result.done });
+
+        // Process each chunk as it arrives and concatenate the response
+        while (!result.done) {
+            result = await reader.read();
+            rawResponse += textDecoder.decode(result.value || new Uint8Array(), { stream: !result.done });
+        }
+
+        // Display the entire bot response in one message with typing effect
+        simulateChatGPTTyping(
             rawResponse,
+            "Bot",
             "bg-gray-300",
             "text-gray-800",
             "self-start"
         );
+
     } catch (error) {
         console.error("Error processing query:", error);
     }
